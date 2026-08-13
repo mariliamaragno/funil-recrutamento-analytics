@@ -1,0 +1,20 @@
+# Ambiente virtual Python
+venv/
+
+# Artefatos gerados pelo dbt
+funil_dbt/target/
+funil_dbt/dbt_packages/
+funil_dbt/logs/
+funil_dbt/profiles.yml
+
+# Banco de dados DuckDB (recriável via script)
+data/warehouse.duckdb
+
+# Airflow (quando chegarmos lá)
+airflow/logs/
+airflow/.env
+
+# Sistema
+.DS_Store
+__pycache__/
+*.pyc
