@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_funil_eventos
+    columns:
+      - name: id_candidato
+        tests:
+          - not_null
+
+      - name: etapa
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["triagem", "entrevista_rh", "entrevista_tecnica", "proposta", "contratacao"]
+
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["aprovado", "reprovado"]
+
+  - name: stg_candidatos
+    columns:
+      - name: id_candidato
+        tests:
+          - not_null
+          - unique
+
+      - name: area
+        tests:
+          - not_null
+
+  - name: stg_vagas
+    columns:
+      - name: id_vaga
+        tests:
+          - not_null
+          - unique
