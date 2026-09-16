@@ -4,7 +4,7 @@ from faker import Faker
 import pandas as pd
 from config import (
     AREAS, SENIORIDADES, FONTES, ETAPAS, TAXAS_AVANCO,
-    MOTIVOS_REPROVACAO, DIAS_MEDIOS_POR_ETAPA, CANDIDATOS_POR_MES
+    MOTIVOS_REPROVACAO, DIAS_MEDIOS_POR_ETAPA, CANDIDATOS_POR_MES, AREA_WEIGHTS
 )
 
 fake = Faker("pt_BR")
@@ -12,8 +12,9 @@ fake = Faker("pt_BR")
 
 def gerar_vagas(mes_referencia, n_vagas=8):
     vagas = []
+    pesos = [AREA_WEIGHTS[a] for a in AREAS]
     for i in range(n_vagas):
-        area = random.choice(AREAS)
+        area = random.choices(AREAS, weights=pesos, k=1)[0]
         vagas.append({
             "id_vaga": f"{mes_referencia.strftime('%Y%m')}-V{i:03d}",
             "titulo": f"{random.choice(SENIORIDADES)} de {area}",
@@ -47,12 +48,12 @@ def gerar_funil_eventos(candidatos_df):
     for _, candidato in candidatos_df.iterrows():
         area = candidato["area"]
         taxas = TAXAS_AVANCO[area]
+        dias_medios = DIAS_MEDIOS_POR_ETAPA[area]
         data_atual = candidato["data_candidatura"]
         etapa_anterior_ok = True
 
         for etapa in ETAPAS:
             if etapa == "contratacao":
-                # Só chega aqui quem passou por "proposta" com sucesso
                 if etapa_anterior_ok:
                     eventos.append({
                         "id_candidato": candidato["id_candidato"],
@@ -66,7 +67,7 @@ def gerar_funil_eventos(candidatos_df):
             if not etapa_anterior_ok:
                 break
 
-            dias_na_etapa = max(1, int(random.gauss(DIAS_MEDIOS_POR_ETAPA[etapa], 1.5)))
+            dias_na_etapa = max(1, int(random.gauss(dias_medios[etapa], 1.5)))
             data_atual = data_atual + timedelta(days=dias_na_etapa)
 
             avancou = random.random() < taxas[etapa]

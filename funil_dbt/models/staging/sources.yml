@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: main
+    tables:
+      - name: raw_vagas
+      - name: raw_candidatos
+      - name: raw_funil_eventos

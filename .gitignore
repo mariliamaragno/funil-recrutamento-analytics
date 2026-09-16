@@ -18,3 +18,6 @@ airflow/.env
 .DS_Store
 __pycache__/
 *.pyc
+funil_dbt/dev.duckdb
+funil_dbt/prod.duckdb
+logs/
