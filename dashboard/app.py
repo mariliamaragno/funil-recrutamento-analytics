@@ -6,7 +6,8 @@ import plotly.express as px
 
 st.set_page_config(page_title="Funil de Recrutamento", layout="wide")
 
-DB_PATH = "../data/warehouse.duckdb"
+import os
+DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "warehouse.duckdb")
 
 @st.cache_data
 def load_data():

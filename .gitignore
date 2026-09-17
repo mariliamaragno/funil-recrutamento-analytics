@@ -8,7 +8,6 @@ funil_dbt/logs/
 funil_dbt/profiles.yml
 
 # Banco de dados DuckDB (recriável via script)
-data/warehouse.duckdb
 
 # Airflow (quando chegarmos lá)
 airflow/logs/
