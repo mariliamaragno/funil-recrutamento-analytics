@@ -21,3 +21,8 @@ __pycache__/
 funil_dbt/dev.duckdb
 funil_dbt/prod.duckdb
 logs/
+airflow/airflow.cfg
+airflow/airflow.db*
+airflow/simple_auth_manager_passwords.json.generated
+airflow/logs/
+airflow/dag_processor_manager/
